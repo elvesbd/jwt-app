@@ -1,32 +1,49 @@
-import { Controller, Delete, Get, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  ParseUUIDPipe,
+  Patch,
+  Post,
+} from '@nestjs/common';
+import { CreateUserDto } from '../infra/dto/create-user.dto';
+import { UpdateUserDto } from '../infra/dto/update-user.dto';
 import { UsersService } from '../services/users.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly userService: UsersService) {}
+  constructor(private readonly usersService: UsersService) {}
 
   @Get()
   async index() {
-    return null;
+    return await this.usersService.findAll();
   }
 
   @Post()
-  async store() {
-    return null;
+  async store(@Body() data: CreateUserDto) {
+    return await this.usersService.store(data);
   }
 
   @Get(':id')
-  async show() {
-    return null;
+  async show(@Param('id', new ParseUUIDPipe()) id: string) {
+    return await this.usersService.findOneOrFail({ id });
   }
 
   @Patch(':id')
-  async update() {
-    return null;
+  async update(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() data: UpdateUserDto,
+  ) {
+    return await this.usersService.update(id, data);
   }
 
   @Delete(':id')
-  async destroy() {
-    return null;
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async destroy(@Param('id', new ParseUUIDPipe()) id: string) {
+    await this.usersService.destroy(id);
   }
 }

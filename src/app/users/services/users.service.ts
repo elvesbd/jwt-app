@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { FindConditions } from 'typeorm';
 import { CreateUserDto } from '../infra/dto/create-user.dto';
 import { UpdateUserDto } from '../infra/dto/update-user.dto';
-import { UserEntity } from '../infra/entity/user-entity';
+import { UserEntity } from '../infra/entity/user.entity';
 import { UsersRepositories } from '../repositories/users-repositories';
 
 @Injectable()

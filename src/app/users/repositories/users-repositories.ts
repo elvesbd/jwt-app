@@ -3,15 +3,12 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { FindConditions, FindOneOptions } from 'typeorm';
 import { CreateUserDto } from '../infra/dto/create-user.dto';
 import { UpdateUserDto } from '../infra/dto/update-user.dto';
-import { UserEntity } from '../infra/entity/user-entity';
+import { UserEntity } from '../infra/entity/user.entity';
 import { UsersRepository } from '../infra/typeorm/users-repository';
 
 @Injectable()
 export class UsersRepositories {
-  constructor(
-    @InjectRepository(UsersRepository)
-    private readonly usersRepository: UsersRepository,
-  ) {}
+  constructor(private readonly usersRepository: UsersRepository) {}
 
   async findAll() {
     return await this.usersRepository.find({

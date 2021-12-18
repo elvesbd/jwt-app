@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { join } from 'path';
+import { UserEntity } from './app/users/infra/entity/user.entity';
 import { UsersModule } from './app/users/users.module';
 
 @Module({
@@ -14,7 +15,7 @@ import { UsersModule } from './app/users/users.module';
       username: process.env.TYPEORM_USERNAME,
       password: process.env.TYPEORM_PASSWORD,
       database: process.env.TYPEORM_DATABASE,
-      entities: join[__dirname + '/**/*.entity{.js,.ts}'],
+      entities: [UserEntity],
       synchronize: true,
     } as TypeOrmModuleOptions),
     UsersModule,

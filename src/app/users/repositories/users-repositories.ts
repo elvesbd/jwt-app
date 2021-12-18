@@ -23,7 +23,7 @@ export class UsersRepositories {
     try {
       return await this.usersRepository.findOneOrFail(conditions, options);
     } catch (e) {
-      throw new NotFoundException(e.message);
+      throw new NotFoundException('User Not Found');
     }
   }
 
